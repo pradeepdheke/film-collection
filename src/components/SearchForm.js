@@ -1,22 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 
-export const SearchForm = () => {
+export const SearchForm = ({handleOnSubmit}) => {
+    const [str, setStr] = useState("")
+
+    const handleOnChange = e => {
+        const {value} = e.target
+        setStr(value)
+    }
+    
+    const formSubmit = (e) => {
+        e.preventDefault()
+        handleOnSubmit(str)
+    }
   return (
     <div className='mt-5'>
         <h1 className='text-center'>My Film List</h1>
-        <Form className='mt-5'>
+        <Form className='mt-5' onSubmit={formSubmit}>
       <Row>
         <Col></Col>
         <Col>
-          <Form.Control placeholder="Type Film Name..." />
+          <Form.Control 
+         onChange={handleOnChange} placeholder="Type Film Name..." required />
         </Col>
         <Col>
-          <Button variant = "primary">Search</Button>
+          <Button type='submit' variant = "primary">Search</Button>
         </Col>
       </Row>
     </Form>
