@@ -10,7 +10,7 @@ export const SearchForm = ({handleOnSubmit}) => {
 
     const handleOnChange = e => {
         const {value} = e.target
-        setStr(value)
+        setStr(value)    
     }
     
     const formSubmit = (e) => {

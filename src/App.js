@@ -11,9 +11,9 @@ function App() {
   const [audio] = useState(new Audio(a))
 const [movie, setMovie] = useState({})
 const [showError, setShowError] = useState("")
+const [movieList, setMovieList] = useState([])
 
   const handleOnSubmit = async (str) => {
-console.log(str)
 
 const result = await fetchMovieInfo(str)
 
@@ -23,19 +23,33 @@ setMovie(result)
 
 }
 
+const movieSelect = (movie) => {
+  setMovieList([...movieList, movie])
+  setMovie({})
+}
+
+const deleteMovie = (imdbID) => {
+
+  if(window.confirm("Are you sure you want to delete this movie?")) {
+
+    const filteredArg = movieList.filter((item) => item.imdbID !== imdbID)
+    setMovieList(filteredArg)
+  }
+}
+
   return (
     <div className="wrapper">
       <Container>
         <SearchForm handleOnSubmit={handleOnSubmit} />
         <div className='mt-4 d-flex justify-content-center'>
-          {movie.imdbID && <CustomCard movie = {movie}/>}
+          {movie.imdbID && <CustomCard movie = {movie} func= {movieSelect} inSearchForm = {true}/>}
           
            {showError && audio.play(a) &&<Alert variant = "danger">{showError}</Alert>}
           
         </div>
 
         <hr />
-              <MovieList/>
+              <MovieList movieList={movieList} deleteMovie = {deleteMovie}/>
 
       </Container>
     </div>
