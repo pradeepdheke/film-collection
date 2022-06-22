@@ -3,10 +3,12 @@ import {Row, Col} from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { CustomCard } from './CustomCard';
+import { CustomList } from './CustomList';
 
 export const MovieList = ({movieList, deleteMovie}) => {
 
 const [displayList, setDisplayList] = useState([])
+const [view, setView] = useState("grid")
 useEffect(() => {
     setDisplayList(movieList)
 }, [movieList])
@@ -31,8 +33,8 @@ const filterMovie = (mood) => {
     </ButtonGroup>
            
             <ButtonGroup aria-label="Basic example">
-      <Button variant="primary">Grid</Button>
-      <Button variant="secondary">List</Button>
+      <Button variant="primary" onClick={() => setView("grid")}>Grid</Button>
+      <Button variant="secondary" onClick={() => setView("list")}>List</Button>
       
     </ButtonGroup>
             </Col>
@@ -51,7 +53,12 @@ const filterMovie = (mood) => {
         <Row className='mt-3'>
             <Col className= "d-flex flex-wrap justify-content-between">
                 {displayList.map((item, i)=> (
-            <CustomCard key = {i} movie={item} func = {deleteMovie}/>
+           view === "grid" ? (
+               <CustomCard key = {i} movie={item} func = {deleteMovie}/>
+               ) : (
+                   
+                   <CustomList key = {i} movie={item} func = {deleteMovie}/>
+               )
                 ))}
             
             </Col>
