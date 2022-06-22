@@ -7,9 +7,9 @@ export const CustomList = ({movie = {}, func, inSearchForm}) => {
   return (
     
         <Card style={{ width: '100%' }} className="mt-3 d-flex flex-row justify-content-between">
-      <div style={{width:"200px"}}>
+      <div style={{width:"150px"}}>
 
-      <Card.Img variant="top" src={Poster}/>
+      <Card.Img variant="top" src={Poster} style = {{width: "150px"}} />
       </div>
       <Card.Body>
         <Card.Title>{Title}</Card.Title>
@@ -25,7 +25,7 @@ export const CustomList = ({movie = {}, func, inSearchForm}) => {
             <Button variant='warning' onClick={()=>func({...movie, mood:'emotional'})}>Emotional</Button>
         </div>
         ) : (
-            <div className="d-grid gap-2">
+            <div className="mt-3 text-end">
       <Button variant="danger" size="lg" onClick={() => func(movie.imdbID)}>
         Delete Movie
       </Button>
